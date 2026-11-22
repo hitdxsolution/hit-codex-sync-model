@@ -1,4 +1,4 @@
 interface:
-  display_name: "채팅 모델 일괄 변경"
+  display_name: "Codex 채팅 모델 일괄 변경"
   short_description: "Go 앱으로 최근 30일 사용한 Codex 채팅의 모델·추론 수준·답변 속도를 변경"
-  default_prompt: "$hit-sync-model 최근 30일 이내 사용한 Codex 채팅을 내가 지정하는 모델과 추론 수준으로 바꿔줘. 답변 속도도 지정하면 함께 바꿔줘. Go 앱을 실행해 적용 결과를 확인해줘."
+  default_prompt: "$hit-codex-sync-model 최근 30일 이내 사용한 Codex 채팅을 내가 지정하는 모델과 추론 수준으로 바꿔줘. 답변 속도도 지정하면 함께 바꿔줘. Go 앱을 실행해 적용 결과를 확인해줘."

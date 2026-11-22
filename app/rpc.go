@@ -88,7 +88,7 @@ func startRPC(ctx context.Context, command string, args []string) (*rpc, error) 
 	}()
 	var initialized json.RawMessage
 	err = r.call(ctx, "initialize", map[string]any{
-		"clientInfo":   map[string]string{"name": "hit_sync_model", "version": "1.0"},
+		"clientInfo":   map[string]string{"name": "hit_codex_sync_model", "version": "1.0"},
 		"capabilities": map[string]bool{"experimentalApi": true},
 	}, &initialized)
 	if err == nil {

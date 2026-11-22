@@ -1,3 +1,3 @@
-module hit-sync-model
+module hit-codex-sync-model
 
 go 1.26
