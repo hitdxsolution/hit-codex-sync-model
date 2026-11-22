@@ -1,5 +1,5 @@
 ---
-name: hit-sync-model
+name: hit-codex-sync-model
 description: Go CLI로 최근 30일 이내 사용한 Codex 채팅의 모델·추론 수준·답변 속도(기본, Fast, Ultrafast)를 일괄 변경한다. 명시적으로 전체 기간을 요청하면 --all을 사용한다. 모든 채팅 모델 동기화, 모델 일괄 전환, 잠금 재시도, 중단 후 재개, 변경 기록 복구 요청에 사용한다.
 ---
 
@@ -9,8 +9,8 @@ description: Go CLI로 최근 30일 이내 사용한 Codex 채팅의 모델·추
 
 스킬 폴더를 각 PC의 Codex 스킬 폴더에 넣는다. macOS·Windows·Linux의 x64와 ARM64용 배포 압축에는 해당 환경에서 바로 실행할 바이너리가 들어 있다. Codex CLI는 이 PC의 계정과 채팅에 접근할 수 있어야 하며, 앱이 사용하는 App Server의 채팅 설정 API를 지원해야 한다.
 
-- macOS·Linux 실행 파일은 `./bin/hit-sync-model`이다.
-- Windows PowerShell 실행 파일은 `.\bin\hit-sync-model.exe`이다. 아래 명령의 실행 파일 경로만 이 경로로 바꾼다.
+- macOS·Linux 실행 파일은 `./bin/hit-codex-sync-model`이다.
+- Windows PowerShell 실행 파일은 `.\bin\hit-codex-sync-model.exe`이다. 아래 명령의 실행 파일 경로만 이 경로로 바꾼다.
 - Codex CLI는 `PATH`에서 먼저 찾는다. macOS에서는 사용자 또는 시스템 Applications 폴더의 Codex·ChatGPT 앱에 포함된 CLI도 찾는다. 별도 설치 경로를 사용한다면 `--codex`에 이 PC의 실제 실행 파일 경로를 전달한다.
 - 채팅과 백업 위치는 현재 `CODEX_HOME`을 따른다. 설정하지 않았으면 현재 사용자의 홈 아래 `.codex`를 사용한다.
 
@@ -18,19 +18,19 @@ description: Go CLI로 최근 30일 이내 사용한 Codex 채팅의 모델·추
 
 ```powershell
 New-Item -ItemType Directory -Path bin -Force | Out-Null
-go -C app build -trimpath -o ../bin/hit-sync-model.exe .
+go -C app build -trimpath -o ../bin/hit-codex-sync-model.exe .
 ```
 
 ## 실행 절차
 
-1. 이 `SKILL.md`가 있는 폴더를 작업 디렉터리로 지정하고 **`./bin/hit-sync-model` Go 실행 파일을 셸에서 실행한다.** 모델 목록 조회, 대상 미리보기, 일괄 적용, 재개, 복구를 모두 같은 실행 파일로 처리한다. 명령 예시만 답하는 대신 요청된 작업을 직접 실행하고 결과를 확인한다.
+1. 이 `SKILL.md`가 있는 폴더를 작업 디렉터리로 지정하고 **`./bin/hit-codex-sync-model` Go 실행 파일을 셸에서 실행한다.** 모델 목록 조회, 대상 미리보기, 일괄 적용, 재개, 복구를 모두 같은 실행 파일로 처리한다. 명령 예시만 답하는 대신 요청된 작업을 직접 실행하고 결과를 확인한다.
 2. 설치 환경에 맞는 실행 파일을 지정한다. 실행 파일이 없거나 소스가 더 최신이면 위 빌드 절차를 따른다.
-3. 새 변경 요청에서는 사용자에게 받은 모델과 추론 수준을 `--model`과 `--effort`로 넘긴다. 목표 모델을 판단할 정보가 없으면 사용자에게 묻고, 모델 목록을 요청하면 `./bin/hit-sync-model --models`를 실행한다. 아래 모델과 추론 수준은 예시다. 추론 수준을 생략하면 앱이 지원되는 기존 값을 유지하고, 지원하지 않는 값에는 대상 모델의 기본값을 적용한다.
+3. 새 변경 요청에서는 사용자에게 받은 모델과 추론 수준을 `--model`과 `--effort`로 넘긴다. 목표 모델을 판단할 정보가 없으면 사용자에게 묻고, 모델 목록을 요청하면 `./bin/hit-codex-sync-model --models`를 실행한다. 아래 모델과 추론 수준은 예시다. 추론 수준을 생략하면 앱이 지원되는 기존 값을 유지하고, 지원하지 않는 값에는 대상 모델의 기본값을 적용한다.
 4. 먼저 `--apply` 없이 실행해 대상 수와 지정한 모델을 확인한다. 사용자가 변경을 요청했고 대상 범위가 맞으면 같은 인자에 `--apply`를 추가해 실행한다. 조회 요청은 미리보기에서 끝낸다. 실행 결과의 `complete`와 상태별 개수, 결과 JSON 경로를 읽어 보고한다.
 
 ```sh
-./bin/hit-sync-model --model gpt-6.2-sol --effort medium
-./bin/hit-sync-model --model gpt-6.2-sol --effort medium --apply
+./bin/hit-codex-sync-model --model gpt-6.2-sol --effort medium
+./bin/hit-codex-sync-model --model gpt-6.2-sol --effort medium --apply
 ```
 
 실행 파일은 Codex App Server를 통해 현재 호스트·로그인 계정의 저장된 모델·추론 수준·답변 속도를 변경한다. 기본 대상은 최근 30일 사용한 채팅이며 보관된 채팅에도 같은 기간 기준을 적용한다.
@@ -50,8 +50,8 @@ go -C app build -trimpath -o ../bin/hit-sync-model.exe .
 속도를 지정하지 않으면 이 옵션을 생략해 채팅마다 기존 속도를 유지한다. 모델별 지원 옵션은 `--models` 결과의 `serviceTiers`에서 확인한다. 속도를 지정한 경우 상세 조회로 현재 값을 확인하고, 적용 결과와 백업에 속도도 기록한다. `--workers`는 일괄 변경 작업의 동시 처리 수를 조정한다.
 
 ```sh
-./bin/hit-sync-model --model gpt-6.2-sol --effort medium --service-tier fast
-./bin/hit-sync-model --model gpt-6.2-sol --effort medium --service-tier fast --apply
+./bin/hit-codex-sync-model --model gpt-6.2-sol --effort medium --service-tier fast
+./bin/hit-codex-sync-model --model gpt-6.2-sol --effort medium --service-tier fast --apply
 ```
 
 ## 데스크톱 잠금 및 재시도
@@ -63,18 +63,18 @@ go -C app build -trimpath -o ../bin/hit-sync-model.exe .
 앱에서 사용 중인 채팅은 `active writer` 오류로 잠길 수 있다. 실행 중인 다른 서버의 잠금을 가져오는 API는 없으므로, 잠금 보유 앱을 종료한 뒤 재시도한다. 앱 안에서 앱을 직접 종료하면 현재 작업이 끊기므로 **앱 외부 터미널**에서 다음 macOS 명령을 실행하고 사용자에게 앱 종료가 필요한 이유를 알린다.
 
 ```sh
-./bin/hit-sync-model --model gpt-6.2-sol --effort medium --apply --retry-locked --wait-seconds 3600 --reopen-app
+./bin/hit-codex-sync-model --model gpt-6.2-sol --effort medium --apply --retry-locked --wait-seconds 3600 --reopen-app
 ```
 
 사용자가 잠긴 채팅도 강제로 처리하도록 요청했다면 외부 터미널에서 `--force-locked`를 사용한다.
 
 ```sh
-./bin/hit-sync-model --model gpt-6.2-sol --effort medium --apply --force-locked
+./bin/hit-codex-sync-model --model gpt-6.2-sol --effort medium --apply --force-locked
 ```
 
 이 옵션은 먼저 가능한 항목을 처리하고, 잠금이 남았을 때만 실행 중인 ChatGPT/Codex 데스크톱 앱에 종료를 요청한다. **진행 중인 다른 채팅 작업도 중단된다.** 종료가 확인되면 잠긴 항목을 한 번 재시도하고 전체 성공 후 종료했던 앱을 다시 연다. `--reopen-app`을 따로 붙일 필요는 없다. `--apply`가 없는 조회에서는 앱을 종료하지 않는다.
 
-앱을 종료하면 현재 채팅의 실행도 끊기므로 `--force-locked --apply`는 앱 외부 터미널에서 실행한다. 외부 터미널용 명령을 준비할 때는 이 스킬의 `bin/hit-sync-model` 절대 경로와 확인한 대상 범위 인자를 사용한다. 사용자가 앱 종료와 실행을 이미 요청했다면 재승인을 요구하지 않는다. 앱 종료가 거부되거나 다른 CLI가 잠금을 보유했다면 실패를 보고한다. 알 수 없는 프로세스를 죽이거나 잠금 파일을 삭제하지 않는다. 일부 적용이나 재시도 실패 시 결과 기록을 남기고 멈추며, 앱 자동 재실행도 완료되지 않았음을 알린다.
+앱을 종료하면 현재 채팅의 실행도 끊기므로 `--force-locked --apply`는 앱 외부 터미널에서 실행한다. 외부 터미널용 명령을 준비할 때는 이 스킬의 `bin/hit-codex-sync-model` 절대 경로와 확인한 대상 범위 인자를 사용한다. 사용자가 앱 종료와 실행을 이미 요청했다면 재승인을 요구하지 않는다. 앱 종료가 거부되거나 다른 CLI가 잠금을 보유했다면 실패를 보고한다. 알 수 없는 프로세스를 죽이거나 잠금 파일을 삭제하지 않는다. 일부 적용이나 재시도 실패 시 결과 기록을 남기고 멈추며, 앱 자동 재실행도 완료되지 않았음을 알린다.
 
 답변 속도를 지정하지 않았고 목록에 모델·추론 수준이 모두 제공되며 이미 일치하면 상세 조회 없이 `already-matching`으로 집계한다. 목록 정보가 없거나 불일치한 채팅만 기본 4개씩 동시에 상세 처리한다. `--workers 1`로 순차 처리하거나 `--workers 8`로 늘릴 수 있으며 허용 범위는 1~16이다. 잠금 여부는 별도 조회 없이 상세 처리의 `active writer` 오류로 판정한다. 독립 서버의 목록 상태만 보고 다른 프로세스의 잠금을 추정하지 않는다.
 
@@ -89,15 +89,15 @@ go -C app build -trimpath -o ../bin/hit-sync-model.exe .
 중단되었거나 일부가 실패했다면 **같은 결과 JSON**으로 재개한다. 재개·복구는 기록에 저장된 대상 범위를 유지하며 날짜가 지났다고 대상을 다시 선정하지 않는다. 이전 전체 기간 기록을 재개하면 그 기록의 전체 범위를 사용하므로 최근 30일로 새로 실행하는 요청에는 사용하지 않는다. 검증이 끝난 항목은 다시 바꾸지 않는다.
 
 ```sh
-./bin/hit-sync-model --resume /absolute/path/model-sync-REPORT.json --apply
-./bin/hit-sync-model --resume /absolute/path/model-sync-REPORT.json --apply --wait-for-desktop-exit --wait-seconds 3600 --reopen-app
+./bin/hit-codex-sync-model --resume /absolute/path/model-sync-REPORT.json --apply
+./bin/hit-codex-sync-model --resume /absolute/path/model-sync-REPORT.json --apply --wait-for-desktop-exit --wait-seconds 3600 --reopen-app
 ```
 
 복구도 조회 후 적용한다. 동기화 이후 사용자가 다시 바꾼 설정은 덮어쓰지 않는다. 원본 기록은 보존하고 별도 복구 결과를 쓴다.
 
 ```sh
-./bin/hit-sync-model --restore /absolute/path/model-sync-REPORT.json
-./bin/hit-sync-model --restore /absolute/path/model-sync-REPORT.json --apply
+./bin/hit-codex-sync-model --restore /absolute/path/model-sync-REPORT.json
+./bin/hit-codex-sync-model --restore /absolute/path/model-sync-REPORT.json --apply
 ```
 
 보관된 채팅은 잠시 보관을 해제하고 처리한 다음 원래 보관 상태로 되돌린다. 되돌리기에 실패하면 즉시 중단하고 해당 ID와 결과 파일을 보고한다. `missing`은 현재 계정·호스트 목록에서 찾을 수 없는 대상이다. 임의로 재개해 변경하지 않는다.
