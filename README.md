@@ -6,7 +6,7 @@ A Go CLI and Codex skill for bulk-updating the model, reasoning effort, and resp
 
 ## Install
 
-1. Download the ZIP for your operating system and CPU from [GitHub Releases](https://github.com/brendanHwang/hit-codex-sync-model/releases/latest). Choose `arm64` for Apple Silicon or Windows on Arm, and `amd64` for Intel or AMD x64. macOS filenames start with `darwin`.
+1. Download the ZIP for your operating system and CPU from [GitHub Releases](https://github.com/hitdxsolution/hit-codex-sync-model/releases/latest). Choose `arm64` for Apple Silicon or Windows on Arm, and `amd64` for Intel or AMD x64. macOS filenames start with `darwin`.
 2. Extract the ZIP. To use `$hit-codex-sync-model` in Codex, place the entire extracted `hit-codex-sync-model` folder in your Codex skills directory. The default is `~/.codex/skills/` on macOS and Linux or `%USERPROFILE%\.codex\skills\` on Windows.
 3. Use a Codex CLI version that supports the Codex App Server thread settings API. The tool looks for `codex` on your `PATH` and can find the bundled CLI in the Codex or ChatGPT app on macOS. Use `--codex PATH` for a custom installation.
 

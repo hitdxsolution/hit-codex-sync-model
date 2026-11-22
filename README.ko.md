@@ -6,7 +6,7 @@ Codex 채팅의 모델, 추론 수준, 답변 속도를 일괄 변경하는 Go C
 
 ## 설치
 
-1. [GitHub Releases](https://github.com/brendanHwang/hit-codex-sync-model/releases/latest)에서 운영체제와 CPU에 맞는 ZIP을 받습니다. Apple Silicon과 Windows on Arm은 `arm64`, Intel·AMD x64는 `amd64`를 선택합니다. macOS 파일 이름은 `darwin`으로 시작합니다.
+1. [GitHub Releases](https://github.com/hitdxsolution/hit-codex-sync-model/releases/latest)에서 운영체제와 CPU에 맞는 ZIP을 받습니다. Apple Silicon과 Windows on Arm은 `arm64`, Intel·AMD x64는 `amd64`를 선택합니다. macOS 파일 이름은 `darwin`으로 시작합니다.
 2. 압축을 풉니다. Codex에서 `$hit-codex-sync-model`로 사용하려면 압축 안의 `hit-codex-sync-model` 폴더 전체를 해당 PC의 Codex 스킬 폴더에 넣습니다. 기본 위치는 macOS·Linux의 `~/.codex/skills/`, Windows의 `%USERPROFILE%\.codex\skills\`입니다.
 3. Codex App Server와 채팅 설정 API를 지원하는 Codex CLI가 필요합니다. CLI는 `PATH`에서 찾습니다. macOS에서는 Codex·ChatGPT 앱에 포함된 CLI도 검색합니다. 별도 설치 경로는 `--codex PATH`로 지정할 수 있습니다.
 
